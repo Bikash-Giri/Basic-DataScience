@@ -3,6 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.neighbors import KNeighborsRegressor
 from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_squared_error
 # Read the data from the file "Advertising.csv"
 data_filename = 'Advertising.csv'
 df = pd.read_csv(data_filename)
@@ -29,7 +30,7 @@ k_value_max = 70
 
 
 # Create a list of integer k values betwwen k_value_min and k_value_max using linspace
-k_list = np.linspace(k_value_min, k_value_max,70,dtype=int)
+k_list = np.linspace(k_value_min, k_value_max,num=70,dtype=int)
 
 # Create a dictionary to store the k value against MSE fit {k: MSE@k} 
 knn_dict = {}
@@ -53,7 +54,7 @@ for k_value in k_list:
     y_pred = model.predict(x_test)
 
      # Calculate the MSE of the test data predictions
-    MSE = np.mean((y_pred - y_test) ** 2)
+    MSE = mean_squared_error(y_test, y_pred)
 
     # Store the MSE values of each k value in the dictionary
     knn_dict[k_value] = MSE
@@ -73,6 +74,9 @@ ax.set_ylabel('Sales in $1000',fontsize=20)
 plt.tight_layout()
 
 
+
+
+
 #Graph Plot
 # Plot a graph which depicts the relation between the k values and MSE
 plt.figure(figsize=(8,6))
@@ -85,14 +89,13 @@ plt.title('Test $MSE$ values for different k values - KNN regression',fontsize=2
 plt.tight_layout()
 plt.show()
 
-# #Find the best knn model
-# ### edTest(test_mse) ###
+#Find the best knn model
 
 # # Find the lowest MSE among all the kNN models
-# min_mse = min(___)
+min_mse = min(knn_dict.values())
 
-# # Use list comprehensions to find the k value associated with the lowest MSE
-# best_model = [key  for (key, value) in knn_dict.items() if value == min_mse]
+# Use list comprehensions to find the k value associated with the lowest MSE
+best_model = [key  for (key, value) in knn_dict.items() if value == min_mse]
 
-# # Print the best k-value
-# print ("The best k value is ",best_model,"with a MSE of ", min_mse)
+# Print the best k-value
+print ("The best k value is ",best_model,"with a MSE of ", min_mse)
