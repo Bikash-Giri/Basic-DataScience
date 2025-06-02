@@ -56,7 +56,7 @@ for k_value in k_list:
         xvals = np.linspace(x.min(),x.max(),100).reshape(-1,1)
         ypreds = model.predict(xvals)
         ax.plot(xvals, ypreds,'-',label = f'k = {int(k_value)}',linewidth=j+2,color = colors[j])
-        j+=20
+        j+=1
         
 ax.legend(loc='lower right',fontsize=20)
 ax.plot(x_train, y_train,'x',label='train',color='k')
