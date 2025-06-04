@@ -99,3 +99,12 @@ best_model = [key  for (key, value) in knn_dict.items() if value == min_mse]
 
 # Print the best k-value
 print ("The best k value is ",best_model,"with a MSE of ", min_mse)
+
+# Helper code to compute the R2_score of your best model
+model = KNeighborsRegressor(n_neighbors=best_model[0])
+model.fit(x_train,y_train)
+y_pred_test = model.predict(x_test)
+
+# Print the R2 score of the model
+print(f"The R2 score for your model is {r2_score(y_test, y_pred_test)}")
+
